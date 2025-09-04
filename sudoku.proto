@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package sudoku_v1;
+
+import "google/api/annotations.proto";
+
+service SudokuService {
+  rpc Solve(SudokuRequest) returns (SudokuResponse) {
+    option (google.api.http) = {
+      post: "/v1/sudoku/solve"
+      body: "*"
+    };
+  }
+  rpc Step(SudokuStepRequest) returns (SudokuStepResponse) {
+    option (google.api.http) = {
+      post: "/v1/sudoku/step"
+      body: "*"
+    };
+  }
+}
+
+message SudokuRequest {
+  repeated int32 board = 1; // пример поля
+}
+
+message SudokuResponse {
+  repeated int32 solved_board = 1;
+}
+
+message SudokuStepRequest {
+  repeated int32 board = 1;
+}
+
+message SudokuStepResponse {
+  repeated int32 board = 1;
+  string explanation = 2;
+}
